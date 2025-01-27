@@ -1,7 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "minilibx-linux/mlx.h"
+# include "mlx/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -19,10 +19,33 @@
 # define PLAYER				'P'
 # define MAP_EXIT 		 	'E'
 
+# define KEY_W				119
+# define KEY_A				97
+# define KEY_S				115
+# define KEY_D				100
+
+# define KEY_UP  			65362
+# define KEY_LEFT  			65361
+# define KEY_RIGHT 			65363
+# define KEY_DOWN  			65364
+
+# define KEY_Q				113
+# define KEY_ESC  			65307
+
 # define FRONT				1
 # define LEFT				2
 # define RIGHT				3
 # define BACK				4
+
+# define WALL_XPM			"assets/sprites/wall.xpm"
+# define FLOOR_XPM			"assets/sprites/floor.xpm"
+# define COINS_XPM			"assets/sprites/coin-bag.xpm"
+# define PLAYER_FRONT_XPM	"assets/sprites/player/front.xpm"
+# define PLAYER_LEFT_XPM	"assets/sprites/player/left.xpm"
+# define PLAYER_RIGHT_XPM	"assets/sprites/player/right.xpm"
+# define PLAYER_BACK_XPM	"assets/sprites/player/back.xpm"
+# define OPEN_EXIT_XPM		"assets/sprites/open-exit.xpm"
+# define EXIT_CLOSED_XPM	"assets/sprites/exit-closed.xpm"
 
 typedef enum e_bool
 {
@@ -58,18 +81,19 @@ typedef struct  s_data
 {
     void    *mlx_ptr; //MXL Pointer
     void    *win_ptr; //MLX window pointer
-    void    *textures[5]; //MXL image pointers (keep on stack)
-    int movements;
-    int player_sprite;
-    t_map   *map; //Map pointer (keep on stack)
-    t_bool   map_alloc;
+    int     movements;
+    int     player_sprite;
+    t_map   map; //Map pointer (keep on stack)
+    t_bool  map_alloc;
     t_image wall;
     t_image floor;
     t_image coins;
+    t_image	open_exit;
+	t_image	exit_closed;
     t_image player_front;
     t_image player_back;
     t_image player_left;
-    t_image player_rigth;
+    t_image player_right;
 }   t_game;
 
 void ft_check_map(t_game *game);
@@ -96,4 +120,13 @@ char	*ft_strappend(char **s1, const char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+void ft_putstr(char *str);
+void	ft_init_sprites(t_game *game);
+int ft_render_map(t_game *game);
+void	ft_free_all_allocated_memory(t_game *game);
+int	ft_close_game(t_game *game);
+void	ft_destroy_images(t_game *game);
+int	ft_handle_input(int keysym, t_game *game);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_victory(t_game *game);
 #endif

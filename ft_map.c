@@ -24,8 +24,8 @@ void    ft_init_map(t_game *game, char *argv)
     map_fd = open(argv,O_RDONLY);
     if(map_fd == -1)
        ft_error_msg("The Map couldn't be opened. Does the Map exist?",game);
-    map_tmp = ft_strdup(" "); // rellenando con un espacio para q no tenga 0 c: 
-    game->map->rows = 0; //inicializando en 0 filas
+    map_tmp = ft_strdup(""); // rellenando con un espacio para q no tenga 0 c: 
+    game->map.rows = 0; //inicializando en 0 filas
     while (true) // bucle infinito solo termina con el break
     {
         line_tmp = get_next_line(map_fd);
@@ -33,11 +33,11 @@ void    ft_init_map(t_game *game, char *argv)
             break; //Aqui termina xq ya no hay mas lineas
         map_tmp = ft_strappend(&map_tmp, line_tmp);
         free(line_tmp);
-        game -> map -> rows++;
+        game->map.rows++;
     }
     close(map_fd);
     ft_empty_line(map_tmp, game);//funcion para ver lineas vacias ft_empty_line
-    game -> map->full = ft_split(map_tmp, '\n' );
+    game->map.full = ft_split(map_tmp, '\n' );
     game -> map_alloc = true;
     free(map_tmp);
 

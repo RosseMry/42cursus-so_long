@@ -6,6 +6,10 @@ RESET			= \033[0m
 
 CC 				= clang
 
+MLX_PATH = mlx/
+
+MLX_LIB = $(MLX_PATH)libmlx.a
+
 STANDARD_FLAGS 	= -Wall -Werror -Wextra
 MINILIBX_FLAGS	= -Lmlx -lmlx -lXext -lX11
 
@@ -25,16 +29,21 @@ SRCS			= so_long.c			\
 				get_next_line.c\
 				get_next_line_utils.c\
 				ft_close.c\
-				ft_free_memory.c
+				ft_free_memory.c\
+				ft_putstr.c\
+				ft_input.c\
+				ft_render.c
 
 all:			${NAME}
 
 ${NAME}: 		
+				@make -C $(MLX_PATH) all
 				${CC} ${SRCS} ${STANDARD_FLAGS} ${MINILIBX_FLAGS} -o ${NAME}
 				@echo "$(NAME): $(GREEN)$(NAME) was compiled.$(RESET)"
 				@echo
 
 clean:
+				make -C $(MLX_PATH) clean
 				make clean -C
 				@echo
 

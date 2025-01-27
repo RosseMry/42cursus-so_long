@@ -1,109 +1,76 @@
 #include "so_long.h"
 
-#define BUFFER_SIZE 1000
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
-char	*ft_line(char *buf)
+void	ft_free_ptr(char **ptr)
 {
-	char	*line;
+	free(*ptr);
+	*ptr = NULL;
+}
+
+static char	*get_line(char **backup, char **line)
+{
+	char	*next_backup;
 	int		i;
 
 	i = 0;
-	if (!buf[i])
-		return (NULL);
-	while (buf[i] && buf[i] != '\n')
+	next_backup = NULL;
+	while (*(*backup + i) != '\n' && *(*backup + i) != '\0')
 		i++;
-	line = ft_calloc(i + 2, sizeof(char));
-	i = 0;
-	while (buf[i] && buf[i] != '\n')
+	if (*(*backup + i) == '\n')
 	{
-		line[i] = buf[i];
 		i++;
+		*line = ft_substr(*backup, 0, i);
+		next_backup = ft_strdup(*backup + i);
 	}
-	if (buf[i] && buf[i] == '\n')
-		line[i++] = '\n';
-	return (line);
+	else
+		*line = ft_strdup(*backup);
+	ft_free_ptr(backup);
+	return (next_backup);
 }
 
-char	*next_line(char *buf)
+static int	read_line(int fd, char **buffer, char **backup, char **line)
 {
-	int		i;
-	int		j;
-	char	*line;
+	int		bytes_read;
+	char	*temporary;
 
-	i = 0;
-	while (buf[i] && buf[i] != '\n')
-		i++;
-	if (!buf[i])
+	bytes_read = 1;
+	while (!ft_strchr(*backup, '\n') && bytes_read)
 	{
-		free(buf);
-		return (NULL);
+		bytes_read = read(fd, *buffer, BUFFER_SIZE);
+		(*buffer)[bytes_read] = '\0';
+		temporary = *backup;
+		*backup = ft_strjoin(temporary, *buffer);
+		free(temporary);
 	}
-	line = ft_calloc((ft_strlen(buf) - i + 1), sizeof(char));
-	i++;
-	j = 0;
-	while (buf[i])
-		line[j++] = buf[i++];
-	free(buf);
-	return (line);
-}
-
-char	*to_clean(char *buffer, char *buf)
-{
-	char	*temp;
-
-	temp = ft_strjoin (buffer, buf);
-	free (buffer);
-	return (temp);
-}
-
-char	*read_file(int fd, char *buf, char *buffer)
-{
-	int		contador;
-
-	if (!buf)
-		buf = ft_calloc (1, 1);
-	contador = 1;
-	while (contador > 0)
-	{
-		contador = read(fd, buffer, BUFFER_SIZE);
-		if (contador == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[contador] = 0;
-		buf = to_clean(buf, buffer);
-		if (ft_strrchr(buffer, '\n'))
-			break ;
-	}
-	free (buffer);
-	return (buf);
+	ft_free_ptr(buffer);
+	*backup = get_line(backup, line);
+	if (!(**line))
+		ft_free_ptr(line);
+	return (bytes_read);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buf_read;
-	static char	*buffer;
+	static char	*buffer_backup = NULL;
+	char		*buffer;
 	char		*line;
 
-	buf_read = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		free(buffer);
-		free(buf_read);
-		buffer = NULL;
-		buf_read = NULL;
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
-	if (!buf_read)
-		return (NULL);
-	buffer = read_file(fd, buffer, buf_read);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
+		return (NULL);
+	if (read(fd, buffer, 0) < 0)
 	{
 		free(buffer);
 		return (NULL);
 	}
-	line = ft_line(buffer);
-	buffer = next_line(buffer);
+	if (!buffer_backup)
+		buffer_backup = ft_strdup("");
+	if (!read_line(fd, &buffer, &buffer_backup, &line) && !line)
+		return (NULL);
 	return (line);
 }
