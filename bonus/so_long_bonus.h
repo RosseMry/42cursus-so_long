@@ -1,7 +1,7 @@
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
-# include "mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -48,6 +48,7 @@
 # define OPEN_EXIT_XPM		"assets/sprites/open-exit.xpm"
 # define EXIT_CLOSED_XPM	"assets/sprites/exit-closed.xpm"
 # define ENEMY_XPM			"assets/sprites/enemy.xpm"
+# define ENEMY2_XPM			"assets/sprites/enemy2.xpm"
 
 # define MAGENTA			"\033[1;35m"
 # define GREEN				"\033[0;32m"
@@ -103,6 +104,7 @@ typedef struct  s_data
     t_image player_back;
     t_image player_left;
     t_image player_right;
+	t_image		enemy;
 }   t_game;
 
 void ft_check_map(t_game *game);
@@ -138,5 +140,7 @@ void	ft_destroy_images(t_game *game);
 int	ft_handle_input(int keysym, t_game *game);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	ft_victory(t_game *game);
-
+/************************** BONUS ******************************/
+int	ft_loss(t_game *game);
+int	update(t_game *game);
 #endif
