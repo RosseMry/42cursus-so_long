@@ -1,5 +1,16 @@
-#include "so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_input.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmarcas- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 16:04:46 by rmarcas-          #+#    #+#             */
+/*   Updated: 2025/02/27 16:05:24 by rmarcas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "so_long.h"
 
 void	ft_player_move(t_game *game, int new_y, int new_x, int player_sprite)
 {
@@ -39,4 +50,3 @@ int	ft_handle_input(int keysym, t_game *game)
 		ft_close_game(game);
 	return (0);
 }
-

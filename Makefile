@@ -5,13 +5,14 @@ GREEN			= \033[0;32m
 RED				= \033[0;31m
 RESET			= \033[0m
 
+LIBFT 			= ./libft/libft.a
 CC 				= gcc
 
 MLX_PATH = mlx/
 
 MLX_LIB = $(MLX_PATH)libmlx.a
 
-STANDARD_FLAGS 	= -Wall -Werror -Wextra
+STANDARD_FLAGS 	= -Wall -Werror -Wextra -g3
 MINILIBX_FLAGS	= -Lmlx -lmlx -lXext -lX11
 
 VALGRIND		= @valgrind --leak-check=full --show-leak-kinds=all \
@@ -25,13 +26,11 @@ SRCS			= so_long.c			\
 				ft_check_map.c		\
 				ft_game.c		\
 				ft_map.c		\
-				ft_libft_utils.c\
 				get_next_line.c\
-				get_next_line_utils.c\
 				ft_close.c\
 				ft_free_memory.c\
-				ft_putstr.c\
 				ft_input.c\
+				ft_floodfill.c\
 				ft_render.c
 
 
@@ -40,32 +39,35 @@ SRCS_BONUS 		= $(addprefix $(BONUS_SRCS_DIR),\
 				ft_check_map_bonus.c		\
 				ft_close_bonus.c		\
 				ft_free_memory_bonus.c		\
-				ft_libft_utils_bonus.c\
 				get_next_line_bonus.c\
-				get_next_line_utils_bonus.c\
 				ft_input_bonus.c		\
 				ft_game_bonus.c		\
-				ft_putstr_bonus.c\
 				ft_map_bonus.c			\
+				ft_floodfill_bonus.c \
 				ft_render_bonus.c)
 
-all:			${NAME}
+all:			${LIBFT} ${NAME}
 
 ${NAME}: 		
 				@make -C $(MLX_PATH) all
-				${CC} ${SRCS} ${STANDARD_FLAGS} ${MINILIBX_FLAGS} -o ${NAME}
+				${CC} ${SRCS} ${LIBFT} ${STANDARD_FLAGS} ${MINILIBX_FLAGS} -o ${NAME}
 				@echo "$(NAME): $(GREEN)$(NAME) was compiled.$(RESET)"
 				@echo
 
-bonus:			${NAME_BONUS}
+bonus:			${LIBFT} ${NAME_BONUS}
 
 ${NAME_BONUS}: 	
 				@make -C $(MLX_PATH) all	
-				${CC} ${SRCS_BONUS} ${STANDARD_FLAGS} ${MINILIBX_FLAGS} -o ${NAME_BONUS}
+				${CC} ${SRCS_BONUS} ${LIBFT} ${STANDARD_FLAGS} ${MINILIBX_FLAGS} -o ${NAME_BONUS}
 				@echo "$(NAME): $(GREEN)$(NAME) was compiled.$(RESET)"
 				@echo
 
+${LIBFT}:
+				@echo
+				make bonus -C libft
+
 clean:
+				make clean -C libft
 				make -C $(MLX_PATH) clean
 				make clean -C
 				@echo
@@ -80,3 +82,4 @@ re:				fclean all
 rebonus:		fclean ${NAME_BONUS}
 
 .PHONY:			all clean fclean re rebonus valgrind
+

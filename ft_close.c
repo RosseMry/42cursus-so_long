@@ -1,9 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_close.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmarcas- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 15:43:44 by rmarcas-          #+#    #+#             */
+/*   Updated: 2025/02/27 15:44:56 by rmarcas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
+
+void	ft_putstr(char *s)
+{
+	int	i;
+
+	if (s != NULL)
+	{
+		i = 0;
+		while (s[i])
+		{
+			write(1, &s[i], 1);
+			i++;
+		}
+	}
+}
 
 int	ft_victory(t_game *game)
 {
-    ft_putstr("victoria");
+	ft_printf(CYAN"\n			Movements: %d\n"RESET, ++game->movements);
 	ft_free_all_allocated_memory(game);
+	ft_printf(MAGENTA"\n\
+    _      _      _      _      _      _      _      _      _      _      _    \n\
+  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  \n\
+ (_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _) \n\
+  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  \n\
+    _                                                                     _    \n\
+  _( )_    ██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗██╗███╗   ██╗██╗    _( )_  \n\
+ (_ o _)   ╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██║████╗  ██║██║   (_ o _) \n\
+  (_,_)     ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║██╔██╗ ██║██║    (_,_)  \n\
+    _        ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║██║╚██╗██║╚═╝      _    \n\
+  _( )_       ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝██║██║ ╚████║██╗    _( )_  \n\
+ (_ o _)      ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝   (_ o _) \n\
+  (_,_)                                                                 (_,_)  \n\
+    _      _      _      _      _      _      _      _      _      _      _    \n\
+  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  _( )_  \n\
+ (_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _)(_ o _) \n\
+  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  (_,_)  \n\\n\
+"RESET);
 	exit (EXIT_FAILURE);
 }
 
@@ -13,11 +58,11 @@ int	ft_close_game(t_game *game)
 	exit (EXIT_FAILURE);
 }
 
-int ft_error_msg(char *message, t_game *game)
+int	ft_error_msg(char *message, t_game *game)
 {
-    if(game -> map_alloc == true)
-        ft_free_map(game);
-    free(game);
-    ft_putstr(message);
-    exit(1);
+	if (game -> map_alloc == true)
+		ft_free_map(game);
+	free(game);
+	ft_putstr(message);
+	exit(1);
 }

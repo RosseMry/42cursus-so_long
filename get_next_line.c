@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmarcas- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/28 15:08:40 by rmarcas-          #+#    #+#             */
+/*   Updated: 2025/03/03 12:25:01 by rmarcas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long.h"
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 100
+#endif
 
 void	ft_free_ptr(char **ptr)
 {

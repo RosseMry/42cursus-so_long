@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_memory_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rmarcas- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 15:45:19 by rmarcas-          #+#    #+#             */
+/*   Updated: 2025/02/28 17:14:52 by rmarcas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
 void	ft_free_all_allocated_memory(t_game *game)
 {
 	ft_destroy_images(game);
 	ft_free_map(game);
-	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	mlx_destroy_window(game->mlx_ptr, game->win);
 	mlx_destroy_display(game->mlx_ptr);
 	free(game->mlx_ptr);
 	free(game);
