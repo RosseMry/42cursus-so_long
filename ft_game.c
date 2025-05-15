@@ -15,7 +15,7 @@
 
 static void	ft_init_var_2(t_game *game)
 {
-	game ->map . columns = ft_strlen(game -> map . full[0]) - 1;
+	game ->map . columns = ft_strlen(game -> map . full[0]);
 	game -> map . coins = 0;
 	game -> map . exit = 0;
 	game -> map . players = 0;

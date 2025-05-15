@@ -48,7 +48,7 @@ void	ft_init_map(t_game *game, char *argv)
 	}
 	close(map_fd);
 	ft_empty_line(map_tmp, game);
-	game->map.full = ft_split(map_tmp, '\n' );
+	game->map.full = ft_split(map_tmp, '\n');
 	game -> map_alloc = true;
 	free(map_tmp);
 }
@@ -63,7 +63,7 @@ void	ft_empty_line(char *map, t_game *game)
 		free(map);
 		ft_error_msg("Invalid Map o empty line at the beginning.", game);
 	}
-	else if (ft_strlen(map) != 0 && map[ft_strlen(map) - 1] == '\n')
+	else if (ft_strlen(map) != 0 && map[ft_strlen(map)] == '\n')
 	{
 		free(map);
 		ft_error_msg("Invalid Map.Have an empty line at the end.", game);

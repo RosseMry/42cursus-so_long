@@ -31,6 +31,8 @@ void	ft_check_rows(t_game *game)
 			ft_error_msg("Invalid Map, wall missing on the first row", game);
 		else if (game -> map.full[i][game ->map.columns - 1] != WALL)
 			ft_error_msg("Invalid Map, must be surrounded by walls", game);
+		else if (ft_strlen(game->map.full[i]) != (size_t)game -> map.columns)
+			ft_error_msg("Invalid Map, rows must have the same length", game);
 		i++;
 	}
 }
@@ -44,7 +46,7 @@ void	ft_check_columns(t_game *game)
 	{
 		if (game -> map.full[0][i] != WALL)
 			ft_error_msg("Invalid Map, wall missing in the first column", game);
-		else if (game -> map.full[game ->map.rows - 1][i] != WALL)
+		else if (game -> map.full[game ->map.rows -1][i] != WALL)
 			ft_error_msg("Invalid Map, must be surrounded by walls! :c ", game);
 		i++;
 	}

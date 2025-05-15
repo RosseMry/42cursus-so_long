@@ -50,9 +50,15 @@ static void	ft_copy(t_game *game, char *argv)
 
 void	flood_fill(t_game *game, char **copie, int x, int y)
 {
-	if (x < 0 || y < 0 || y >= game-> map.rows || x >= game -> map.columns \
-	|| copie[y][x] == '1' || copie[y][x] == 'X')
+	if (x < 0 || y < 0 || y >= game-> map.rows || x >= game -> map.columns)
 		return ;
+	if (copie[y][x] == '1' || copie[y][x] == 'X')
+		return ;
+	if (copie[y][x] == 'E')
+	{
+		copie[y][x] = 'X';
+		return ;
+	}
 	copie[y][x] = 'X';
 	flood_fill(game, copie, x + 1, y);
 	flood_fill(game, copie, x - 1, y);
@@ -74,10 +80,10 @@ void	ft_verify_win(t_game *game, char *argv)
 		can_colun = 0;
 		while (can_colun < game->map.columns)
 		{
-			if (game->map.copy[can_row][can_colun] == '0' \
-			|| game->map.copy[can_row][can_colun] == 'E' \
-			|| game->map.copy[can_row][can_colun] == 'C')
+			if (game->map.copy[can_row][can_colun] == 'C' ||
+				game->map.copy[can_row][can_colun] == 'E')
 			{
+				ft_clean(game);
 				ft_error_msg("There is no posible way to win", game);
 				return ;
 			}
