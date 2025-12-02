@@ -1,7 +1,6 @@
 # 🎮 so_long — 42 Project
 
 The goal is to handle window management, event handling, and sprite rendering using the **MiniLibX** library.
----
 
 ## 🎯 Objective
 
