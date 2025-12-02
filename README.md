@@ -46,7 +46,6 @@ Example of a valid `.ber` map:
 | `C`       | Collectible     |
 | `E`       | Exit            |
 
----
 
 ## ▶️ How to Run
 
