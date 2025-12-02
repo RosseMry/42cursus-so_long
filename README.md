@@ -12,7 +12,6 @@ The player must:
 
 The game ends when all collectibles have been picked up and the player reaches the exit.
 
----
 
 ## ✨ Features
 
@@ -27,7 +26,6 @@ The game ends when all collectibles have been picked up and the player reaches t
 - Error handling for invalid maps
 - Simple and clean code structure following 42 Norm
 
----
 
 ## 🗺️ Map Format
 
@@ -36,6 +34,7 @@ Example of a valid `.ber` map:
 1P0C0E1
 1000001
 1111111
+
 
 ### 🔤 Legend
 
