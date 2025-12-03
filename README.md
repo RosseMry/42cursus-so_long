@@ -5,14 +5,12 @@ The goal is to handle window management, event handling, and sprite rendering us
 
 ## 🎯 Objective
 
-
 The player must:
 - Collect **all the collectibles** (`C`)
 - Reach the **exit** (`E`)
 - Navigate the map without passing through walls
 
 The game ends when all collectibles have been picked up and the player reaches the exit.
-
 
 
 ## ✨ Features
@@ -27,7 +25,6 @@ The game ends when all collectibles have been picked up and the player reaches t
 - Movement counter displayed in the terminal
 - Error handling for invalid maps
 - Simple and clean code structure following 42 Norm
-
 
 
 ## 🗺️ Map Format
